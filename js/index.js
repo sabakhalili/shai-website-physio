@@ -11,9 +11,6 @@
       encodeURIComponent(cfg.whatsappMessage)
     );
   }
-  function telLink() {
-    return "tel:" + cfg.phoneNumber;
-  }
   function mailLink() {
     return "mailto:" + cfg.email;
   }
@@ -26,10 +23,6 @@
   ].forEach(function (id) {
     var el = document.getElementById(id);
     if (el) el.href = waLink();
-  });
-  ["hero-call", "final-call"].forEach(function (id) {
-    var el = document.getElementById(id);
-    if (el) el.href = telLink();
   });
   ["hero-email", "final-email"].forEach(function (id) {
     var el = document.getElementById(id);

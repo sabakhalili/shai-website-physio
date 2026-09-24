@@ -375,6 +375,7 @@ a {
 .services h2 {
   text-align: center;
   color: var(--color-primary-dark);
+  font-size: 24px;
   margin-top: 0;
 }
 
@@ -424,6 +425,7 @@ a {
 
 .testimonials-main h1 {
   color: var(--color-primary-dark);
+  font-size: 32px;
   margin: 0 0 28px;
 }
 
@@ -507,7 +509,7 @@ a {
 .testimonials-preview h2 {
   text-align: center;
   color: var(--color-primary-dark);
-  font-size: 36px;
+  font-size: 24px;
   margin: 0 0 48px;
 }
 
@@ -726,7 +728,7 @@ a {
   color: var(--color-primary-dark);
   margin-top: 0;
   margin-bottom: 20px;
-  font-size: 1.6em;
+  font-size: 32px;
 }
 
 .feedback-main .form-status {
