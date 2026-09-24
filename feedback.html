@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leave Feedback | Dr. Shaiqua Khalili (PT)</title>
+  <meta
+    name="description"
+    content="Share feedback about your home physiotherapy session with Dr. Shaiqua Khalili. Takes under a minute."
+  />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Leave Feedback | Dr. Shaiqua Khalili (PT)" />
+  <meta
+    property="og:description"
+    content="Share feedback about your home physiotherapy session. Takes under a minute."
+  />
+  <meta property="og:image" content="/assets/og-image.jpg" />
+
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container">
+      <a class="topbar-brand" href="index.html" id="topbar-brand">Dr. Shaiqua Khalili (PT)</a>
+      <nav class="topbar-links" aria-label="Primary">
+        <a class="topbar-feedback-link" href="testimonials.html">Testimonials</a>
+        <a class="topbar-feedback-link" href="feedback.html" aria-current="page">
+          Feedback
+        </a>
+        <a
+          class="btn btn-whatsapp"
+          id="topbar-whatsapp"
+          href="#"
+          target="_blank"
+          rel="noopener"
+        >
+          WhatsApp
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="feedback-main">
+    <div class="container">
+      <h1>How was your session?</h1>
+
+      <div
+        class="form-status status-success"
+        id="success-status"
+        role="status"
+        data-visible="false"
+      >
+        Thank you for the feedback.
+        <div class="form-success-actions">
+          <a
+            class="btn btn-call"
+            id="review-link"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            hidden
+          >
+            Leave a Google review
+          </a>
+        </div>
+      </div>
+
+      <form
+        id="feedback-form"
+        class="feedback-form"
+        novalidate
+        action="#"
+        method="post"
+      >
+        <div class="form-field" id="name-field">
+          <label for="name">Name <span class="optional-mark">(optional)</span></label>
+          <input type="text" id="name" name="name" maxlength="100" />
+          <p class="field-error" role="alert">Name is too long.</p>
+        </div>
+
+        <div class="form-field" id="comments-field">
+          <label for="comments">
+            Comments <span class="required-mark" aria-hidden="true">*</span>
+          </label>
+          <textarea
+            id="comments"
+            name="comments"
+            maxlength="1000"
+            required
+            aria-required="true"
+          ></textarea>
+          <p class="field-error" role="alert">
+            Please share a comment (up to 1000 characters).
+          </p>
+        </div>
+
+        <!-- Honeypot: real users never see or fill this. -->
+        <div class="honeypot-field" aria-hidden="true">
+          <label for="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+
+        <div>
+          <button type="submit" class="btn btn-whatsapp btn-block" id="submit-btn">
+            Submit feedback
+          </button>
+          <p class="form-note">
+            Your details are only used to follow up on your feedback.
+          </p>
+        </div>
+
+        <div
+          class="form-status status-error"
+          id="error-status"
+          role="alert"
+          data-visible="false"
+        >
+          Something went wrong sending your feedback. Please try again.
+          Your answers have been kept.
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/feedback.js"></script>
+</body>
+</html>
