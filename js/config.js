@@ -185,5 +185,6 @@ window.SITE_CONFIG = {
   // Google Apps Script web app /exec URL, once deployed. See
   // apps-script/Code.gs and README.md for deployment steps.
   // TODO(real-content): replace after deploying the Apps Script web app.
-  appsScriptUrl: "https://script.google.com/macros/s/REPLACE_ME/exec",
+  appsScriptUrl:
+    "https://script.google.com/macros/s/AKfycbwR51aurYUVycDu3FltS9wX-BzVTcco0220i5FYEswmiyEyiQNCIqt4kE4iF5ALWm6TEQ/exec",
 };
