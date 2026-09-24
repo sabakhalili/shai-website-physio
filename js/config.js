@@ -186,5 +186,5 @@ window.SITE_CONFIG = {
   // apps-script/Code.gs and README.md for deployment steps.
   // TODO(real-content): replace after deploying the Apps Script web app.
   appsScriptUrl:
-    "https://script.google.com/macros/s/AKfycbwR51aurYUVycDu3FltS9wX-BzVTcco0220i5FYEswmiyEyiQNCIqt4kE4iF5ALWm6TEQ/exec",
+    "https://script.google.com/macros/s/AKfycbz1K94UQoLQMpNniFkXxl2qzBJYmvifJ93S-x2pWxBAkjRL91vupX-bxIDDa7j9H-NOGw/exec",
 };

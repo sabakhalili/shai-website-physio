@@ -23,11 +23,20 @@ function doPost(e) {
   lock.waitLock(10000);
 
   try {
-    var params = (e && e.parameter) || {};
+    var params = parseParams(e);
     var validation = validate(params);
 
     if (!validation.ok) {
-      return jsonResponse({ ok: false, error: validation.error });
+      return jsonResponse({
+        ok: false,
+        error: validation.error,
+        debug: {
+          postDataType: e && e.postData && e.postData.type,
+          postDataLength: e && e.postData && e.postData.length,
+          postDataContents: e && e.postData && e.postData.contents,
+          parsedParams: params,
+        },
+      });
     }
 
     var sheet = getSheet();
@@ -56,6 +65,27 @@ function doPost(e) {
   } finally {
     lock.releaseLock();
   }
+}
+
+// The client posts with Content-Type: text/plain (to avoid a CORS preflight
+// that Apps Script can't handle), so Apps Script does NOT auto-populate
+// e.parameter the way it would for a real application/x-www-form-urlencoded
+// request. Parse the raw body ourselves instead.
+function parseParams(e) {
+  var contents = e && e.postData && e.postData.contents;
+  if (!contents) return {};
+
+  var params = {};
+  contents.split("&").forEach(function (pair) {
+    if (!pair) return;
+    var idx = pair.indexOf("=");
+    var key = idx === -1 ? pair : pair.slice(0, idx);
+    var value = idx === -1 ? "" : pair.slice(idx + 1);
+    params[decodeURIComponent(key.replace(/\+/g, " "))] = decodeURIComponent(
+      value.replace(/\+/g, " ")
+    );
+  });
+  return params;
 }
 
 function validate(params) {
