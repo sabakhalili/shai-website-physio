@@ -27,16 +27,7 @@ function doPost(e) {
     var validation = validate(params);
 
     if (!validation.ok) {
-      return jsonResponse({
-        ok: false,
-        error: validation.error,
-        debug: {
-          postDataType: e && e.postData && e.postData.type,
-          postDataLength: e && e.postData && e.postData.length,
-          postDataContents: e && e.postData && e.postData.contents,
-          parsedParams: params,
-        },
-      });
+      return jsonResponse({ ok: false, error: validation.error });
     }
 
     var sheet = getSheet();
@@ -64,6 +55,46 @@ function doPost(e) {
     return jsonResponse({ ok: false, error: "Server error. Please try again." });
   } finally {
     lock.releaseLock();
+  }
+}
+
+function doGet(e) {
+  try {
+    var sheet = getSheet();
+    var lastRow = sheet.getLastRow();
+
+    if (lastRow <= 1) {
+      return jsonResponse({ ok: true, testimonials: [] });
+    }
+
+    var rows = sheet.getRange(2, 1, lastRow - 1, HEADER_ROW.length).getValues();
+
+    var testimonials = rows
+      .map(function (row) {
+        return {
+          timestamp: String(row[0] || "").trim(),
+          comment: String(row[1] || "").trim(),
+          name: String(row[2] || "").trim() || "Patient",
+        };
+      })
+      .filter(function (t) {
+        // Defensive: doGet reads raw sheet data, don't assume it's clean.
+        return !!t.comment && !!t.timestamp;
+      })
+      .sort(function (a, b) {
+        // timestamp is "yyyy-MM-dd HH:mm:ss" — lexicographic order IS
+        // chronological order, so a plain string compare works.
+        if (a.timestamp === b.timestamp) return 0;
+        return a.timestamp < b.timestamp ? 1 : -1; // descending: latest first
+      })
+      .slice(0, 10)
+      .map(function (t) {
+        return { name: t.name, comment: t.comment };
+      });
+
+    return jsonResponse({ ok: true, testimonials: testimonials });
+  } catch (err) {
+    return jsonResponse({ ok: false, error: "Server error. Please try again." });
   }
 }
 

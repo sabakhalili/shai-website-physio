@@ -429,6 +429,13 @@ a {
   margin: 0 0 28px;
 }
 
+.testimonials-state {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 14px;
+  padding: 48px 0;
+}
+
 .testimonials-grid {
   display: grid;
   gap: 18px;
