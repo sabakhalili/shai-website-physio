@@ -16,7 +16,7 @@
 
 var SHEET_NAME = "Feedback"; // change if your sheet tab has a different name
 var NOTIFY_EMAIL = ""; // e.g. "her@example.com" — leave blank to disable
-var HEADER_ROW = ["timestamp", "comments", "name"];
+var HEADER_ROW = ["timestamp", "comments", "name", "approved"];
 
 function doPost(e) {
   var lock = LockService.getScriptLock();
@@ -35,6 +35,7 @@ function doPost(e) {
       formatTimestamp(),
       sanitize(params.comments.trim()),
       sanitize((params.name || "").trim()),
+      "no",
     ]);
 
     if (NOTIFY_EMAIL) {
@@ -75,11 +76,13 @@ function doGet(e) {
           timestamp: String(row[0] || "").trim(),
           comment: String(row[1] || "").trim(),
           name: String(row[2] || "").trim() || "Patient",
+          approved: String(row[3] || "").trim().toLowerCase(),
         };
       })
       .filter(function (t) {
         // Defensive: doGet reads raw sheet data, don't assume it's clean.
-        return !!t.comment && !!t.timestamp;
+        // Only publicly-approved rows are ever returned.
+        return !!t.comment && !!t.timestamp && t.approved === "yes";
       })
       .sort(function (a, b) {
         // timestamp is "yyyy-MM-dd HH:mm:ss" — lexicographic order IS
